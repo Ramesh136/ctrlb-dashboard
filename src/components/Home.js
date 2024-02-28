@@ -15,10 +15,10 @@ function Home() {
     <Login setIsLoggedIn={setIsLoggedIn} />
   ) : (
     <div className="flex">
-      <div className="fixed inset-y-0 z-50 h-full w-64 flex-col">
+      <div className="fixed inset-y-0 h-full flex-col">
         <SideBar />
       </div>
-      <div className="relative ml-40 p-2">
+      <div className="ml-40 p-2 w-full">
         <Outlet />
       </div>
     </div>

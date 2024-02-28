@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import ReactFlow, {
   MiniMap,
+  Controls,
   Background,
   useNodesState,
   useEdgesState,
@@ -33,26 +34,28 @@ const Graphic = () => {
       [setEdges],
     );
 
-    const addNode = useCallback(() => {
-    console.log('osmeyhing')
+    const addNode = () => {
+    console.log(nodes)
       yPos.current += 50;
       setNodes([
-       
-          ...nodes,
-          {
-            id: Math.random(),
-            position: { x: 100, y: yPos.current },
-            data: { label: "yo" },
-          },
-        ]
-      )
-    }, []);
+        ...nodes,
+        {
+          id: Math.random(),
+          position: { x: 100, y: yPos.current },
+          data: { label: "yo" },
+          width: 150,
+          height: 40,
+          dragging: true,
+          selected : true
+        },
+      ]);
+    }
  
   return (
     <div>
-      <h1 className="text-3xl">DashBoard</h1>
+      <h1 className="text-3xl w-full">DashBoard</h1>
       <div className="mt-9">
-        <div className="border p-5" style={{ width: "120vh", height: "50vh" }}>
+        <div className="border p-5" style={{ width: "100%", height: "50vh" }}>
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -60,14 +63,13 @@ const Graphic = () => {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
           >
-           
+            <Controls />
             <MiniMap style={minimapStyle} />
             <Background variant="dots" gap={12} size={1} />
           </ReactFlow>
         </div>
       </div>
-      <button onClick={(e) => {e.stopPropagation()
-        console.log("sjdh")}}>add</button>
+      <button onClick={addNode}>add</button>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../cltrlb-logos/ctrlB-logos_transparent.png";
+import logo from "../cltrlb-logos/ctrlB-logos_black.png";
 import { Compass, GitBranch, HandHelping, Settings2 } from "lucide-react";
 import { history } from "../utils/helper";
 
@@ -34,8 +34,10 @@ const SideBar = () => {
   const [current, setCurrent] = useState(0);
   return (
     <div className="h-full w-40 border-r-2">
-      <div className="border-b" onClick={() => history.navigation("/")}>
-        <img src={logo} className="w-20 cursor-pointer" />
+      <div className="border-b" onClick={() => {
+        setCurrent(0)
+        history.navigation("/")}}>
+        <img src={logo} className="w-24 cursor-pointer" alt="logo"/>
       </div>
 
       {menuList.map((key, index) => {
