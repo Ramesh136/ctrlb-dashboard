@@ -5,10 +5,7 @@ import OverView from "./OverView";
 const Modal = ({dialogueBox , setDialogueBox}) => {
 
   const [toggle , setToggle] = useState(true)
-  let active = ''
-  if(toggle){
-    active = "text-green-600"
-  }
+  
   return (
     <>
       {dialogueBox ? (

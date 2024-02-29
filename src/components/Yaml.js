@@ -1,7 +1,8 @@
 import { MoreVertical } from 'lucide-react';
-import React from 'react'
+import React, { useContext } from 'react'
 
 const Yaml = () => {
+
   return (
     <div className="h-60">
       <div className='ml-72'>
@@ -11,7 +12,7 @@ const Yaml = () => {
       <p contentEditable="true" className=" p-2">
         version:vs <br />
         settings : <br />
-        {""}tag: prod_test <br /> log: level:info
+        {""}tag: prod_test <br /> log: <br /> level:info
       </p>
     </div>
   );

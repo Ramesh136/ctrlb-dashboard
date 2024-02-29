@@ -4,7 +4,7 @@ const Support = () => {
   
   return (
     <div>
-      <button onClick={()=>console.log('support')}>add</button>
+      Support
     </div>
   )
 }

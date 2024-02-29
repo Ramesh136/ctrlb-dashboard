@@ -1,29 +1,28 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   useNodesState,
   useEdgesState,
 } from "react-flow-renderer";
+import { Elements } from "../App";
 
-// import "./styles.css";
 
 const getNodeId = () => `randomnode_${+new Date()}`;
 
-const initialNodes = [
-  { id: "1",type: 'input' , data: { label: "Input Node" }, position: { x: 100, y: 100 } },
-  { id: "2", data: { label: "Intermediate" }, position: { x: 100, y: 200 } },
-];
-
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-
 const FlowExample = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges , setEdges] = useEdgesState(initialEdges);
+  const el = useContext(Elements)
+  const [wrong ,setWrong] = useState(false)
+  const [nodes, setNodes, onNodesChange] = useNodesState(el.onodes);
+  const [edges , setEdges] = useEdgesState(el.oedges);
   const [nodeName, setNodeName] = useState("");
+
+  useEffect(()=>{
+    el.setONodes(nodes);
+    el.setOEdges(edges)
+  },[nodes ,edges])
 
   const addEdge = useCallback(({ source, target }) => {
     setEdges((edges) => {
-      console.log(source, target);
       return [
         ...edges,
         {
@@ -36,9 +35,11 @@ const FlowExample = () => {
   }, []);
 
   const onAdd = useCallback((e) => {
-    if(nodeName==="")
-        return
-    console.log(e.target.innerText)
+    if(nodeName===""){
+      setWrong(true)
+      setTimeout(()=>setWrong(false) ,2000)
+      return
+    }
     const newNode = {
       id: getNodeId(),
       data: { label: `${nodeName}` },
@@ -49,6 +50,7 @@ const FlowExample = () => {
       type: e.target.innerText === "Add Source Node" ? "input" : "default",
     };
     setNodes((nds) => nds.concat(newNode));
+    
   }, [nodes, setNodes, nodeName]);
 
   return (
@@ -83,6 +85,7 @@ const FlowExample = () => {
         >
           Add Destination Node
         </button>
+        {wrong ?<h2 className="inline-block text-red-600">Enter Node name</h2> : null}
       </div>
     </div>
   );
